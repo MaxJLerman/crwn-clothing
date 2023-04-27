@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,10 +21,11 @@ const CartDropdown = () => {
     return dispatch(setIsCartOpen(!isCartOpen));
   };
 
-  const goToCheckoutHandler = () => {
+  // useCallback is used to prevent re-rendering the component if nothing inside the function changes, memoizing the function (not the output of the function)
+  const goToCheckoutHandler = useCallback(() => {
     toggleIsCartOpen();
     navigate('/checkout');
-  };
+  }, []);
     
   return(
     <CartDropdownContainer>
