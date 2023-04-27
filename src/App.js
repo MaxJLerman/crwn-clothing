@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import { checkUserSession } from './store/user/user.action';
 import Spinner from './components/spinner/spinner.component';
+import { GlobalStyle } from './global.styles';
 
 // lazy imports usually used for routed components
 // react won't render the component until it is required to be rendered, used in conjunction with Suspense below
@@ -26,6 +27,7 @@ const App = () => {
   return (
     <Suspense fallback={<Spinner />}>
     {/* whilst react is fetching the components needing rendering, fallback component is rendered */}
+      <GlobalStyle />
       <Routes>
         <Route path='/' element={<Navigation />} >
           <Route index element={<Home />} /> {/* including "index" makes it so the Home component shows when the path is just '/' */}
