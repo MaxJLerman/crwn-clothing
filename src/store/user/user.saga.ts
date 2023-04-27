@@ -1,5 +1,4 @@
 import { takeLatest, put, all, call } from "typed-redux-saga/macro";
-import { FirebaseError } from 'firebase/app';
 import { AuthError, AuthErrorCodes } from "firebase/auth";
 import { User } from "firebase/auth";
 
