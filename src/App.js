@@ -1,13 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 
-import Navigation from './routes/navigation/navigation.component';
-import Home from './routes/home/home.component';
-import Authentication from './routes/authentication/authentication.component';
-import Shop from './routes/shop/shop.component';
-import Checkout from './routes/checkout/checkout.component';
 import { checkUserSession } from './store/user/user.action';
+import Spinner from './components/spinner/spinner.component';
+
+// lazy imports usually used for routed components
+// react won't render the component until it is required to be rendered, used in conjunction with Suspense below
+const Home = lazy(() => import('./routes/home/home.component'));
+const Authentication = lazy(() => import('./routes/authentication/authentication.component'));
+const Shop = lazy(() => import('./routes/shop/shop.component'));
+const Navigation = lazy(() => import('./routes/navigation/navigation.component'));
+const Checkout = lazy(() => import('./routes/checkout/checkout.component'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,14 +24,17 @@ const App = () => {
   // because redux generates one dispatch and it will never change that reference
   
   return (
-    <Routes>
-      <Route path='/' element={<Navigation />} >
-        <Route index element={<Home />} /> {/* including "index" makes it so the Home component shows when the path is just '/' */}
-        <Route path='shop/*' element={<Shop />} /> {/* the path suffix of /* means anything after the shop component is rendered in the shop and then the further routing is done inside the shop component */}
-        <Route path='authentication' element={<Authentication />} />
-        <Route path="checkout" element={<Checkout />} />
-      </Route>
-    </Routes>
+    <Suspense fallback={<Spinner />}>
+    {/* whilst react is fetching the components needing rendering, fallback component is rendered */}
+      <Routes>
+        <Route path='/' element={<Navigation />} >
+          <Route index element={<Home />} /> {/* including "index" makes it so the Home component shows when the path is just '/' */}
+          <Route path='shop/*' element={<Shop />} /> {/* the path suffix of /* means anything after the shop component is rendered in the shop and then the further routing is done inside the shop component */}
+          <Route path='authentication' element={<Authentication />} />
+          <Route path="checkout" element={<Checkout />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
 
