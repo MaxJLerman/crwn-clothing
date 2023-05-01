@@ -33,6 +33,33 @@ export const ProductCardContaier = styled.div`
       display: flex;
     }
   }
+
+  @media screen and (max-width: 800px) {
+    width: 40vw;
+
+    button {
+      display: block;
+      opacity: 0.9;
+      min-width: unset;
+      padding: 0 10px;
+
+      &:hover {
+        img {
+          opacity: unset;
+        }
+
+        button {
+          opacity: unset;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    width: 80vw;
+
+    // no need to incorporate max-width 800px button styling because it already applies to this max-width 400px styling
+  }
 `;
 
 export const Footer = styled.div`
