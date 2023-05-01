@@ -25,6 +25,7 @@ const CartDropdown = () => {
   const goToCheckoutHandler = useCallback(() => {
     toggleIsCartOpen();
     navigate('/checkout');
+  // eslint-disable-next-line
   }, []);
     
   return(
