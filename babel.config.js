@@ -10,7 +10,6 @@ module.exports = function (api) {
       [
         "babel-plugin-macros",
         {
-          // add this line to your config
           "typed-redux-saga": {},
         },
       ],
